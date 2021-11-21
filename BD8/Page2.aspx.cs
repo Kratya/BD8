@@ -20,7 +20,7 @@ namespace Lab8
         protected void Button1_Click(object sender, EventArgs e)
         {
             //создание объекта подключения и ODBC-источник
-            OdbcConnection connection = new OdbcConnection(@"Dsn=PostgreSQL30");
+            OdbcConnection connection = new OdbcConnection(@"Dsn=PostgreSQL");
             connection.Open();
 
             //текст запроса

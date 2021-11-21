@@ -9,7 +9,7 @@
             <style type="text/css">
                     #TextArea1 {
                         height: 108px;
-                        width: 228px;
+                        width: 228px;<asp:SqlDataSource runat="server"></asp:SqlDataSource>
                     }
                     h3 {
                         font-family: Verdana, Arial, Helvetica, sans-serif;
@@ -59,7 +59,7 @@
                         runat="server"
                         ConnectionString="<%$ ConnectionStrings:studentsConnectionString %>"
                         ProviderName="<%$ ConnectionStrings:studentsConnectionString.ProviderName %>"
-                        SelectCommand="select n_izd from pmib7201.j order by n_izd"></asp:SqlDataSource>
+                        SelectCommand="select n_izd from pmib8306.j order by n_izd"></asp:SqlDataSource>
                     <br />
                     <br />
                     <h4>Укажите размер издержек</h4>
