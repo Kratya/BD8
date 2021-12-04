@@ -46,12 +46,12 @@
                 <div class="flex-container flex-start">
                     <br />
                     <h4>Укажите изделие:</h4>
-                    <asp:DropDownList
-                        ID="DropDownList1"
+                    <asp:DropDownList 
+                        ID="DropDownList1" 
                         runat="server"
                         DataSourceID="SqlDataSource1"
-                        DataTextField="n_izd"
-                        DataValueField="n_izd" Height="30px" Width="200px">
+                         DataTextField="name"
+                         DataValueField="n_izd" Height="30px" Width="200px">
                     </asp:DropDownList>
 
                     <asp:SqlDataSource
@@ -59,7 +59,7 @@
                         runat="server"
                         ConnectionString="<%$ ConnectionStrings:studentsConnectionString %>"
                         ProviderName="<%$ ConnectionStrings:studentsConnectionString.ProviderName %>"
-                        SelectCommand="select n_izd from pmib8306.j order by n_izd"></asp:SqlDataSource>
+                        SelectCommand="select name, n_izd from pmib8306.j"></asp:SqlDataSource>
                     <br />
                     <br />
                     <h4>Укажите размер издержек</h4>

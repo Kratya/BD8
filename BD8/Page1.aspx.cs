@@ -17,12 +17,18 @@ namespace Lab8
         public string n_izd { get; set; }
         public DateTime date_begin { get; set; }
         public int cost { get; set; }
-        public Struct_query(string n_exp, string n_izd, DateTime date_begin, int cost)
+
+        public string name { get; set; }
+
+        public string town { get; set; }
+        public Struct_query(string n_exp, string n_izd, DateTime date_begin, int cost, string name, string town)
         {
             this.n_exp = n_exp;
             this.n_izd = n_izd;
             this.date_begin = date_begin;
             this.cost = cost;
+            this.name = name;
+            this.town = town;
         }
     }
 
@@ -40,23 +46,27 @@ namespace Lab8
             connection.Open();
 
             //текст запроса
-            string request = "select pmib8306.e.* " +
+            string request = "select pmib8306.e.n_exp, pmib8306.e.n_izd, pmib8306.e.date_begin, pmib8306.e.cost, pmib8306.j.name, pmib8306.j.town  " +
                              "from pmib8306.e " +
+                             " join pmib8306.j on pmib8306.e.n_izd = pmib8306.j.n_izd " +
                              "where pmib8306.e.n_izd = ? " +
                                    "and " +
                                    "pmib8306.e.date_begin = ? ";
-
+            
+            //создаем объект запроса
             using (OdbcCommand command = new OdbcCommand(request, connection))
             {
                 //изделие, дата
                 string izd = DropDownList1.SelectedValue;
                 string dateFrom = TextBox1.Text;
+                string name = TextBox1.Text;
+                string town = TextBox1.Text;
                 //параметры
                 command.Parameters.AddWithValue("@izd", izd);
                 command.Parameters.AddWithValue("@date", dateFrom);
+        
                 //объявление объекта транзакции
                 OdbcTransaction tr = null;
-
                 try
                 {
                     //создание транзакции и извлечение объекта транзакции из объекта подключения
@@ -72,19 +82,24 @@ namespace Lab8
                         data.Add(new Struct_query((string)reader.GetValue(0),
                                                     (string)reader.GetValue(1),
                                                     (DateTime)reader.GetValue(2),
-                                                    (int)reader.GetValue(3)));
+                                                    (int)reader.GetValue(3),
+                                                    (string)reader.GetValue(4),
+                                                    (string)reader.GetValue(5)
+                                                    ));
                     //закрытие запроса
                     reader.Close();
                     //подтверждение транзакции
-                    tr.Commit();
+                    //tr.Commit();
                     //сообщение об успешности транзакции и количестве обработанных записей
                     //или так data.Count().ToString();
                     int i = command.ExecuteNonQuery();
                     Label1.Text = "Транзакция успешно завершена. Записей обработано: " + i.ToString() + ".\n";
                     if (i == 0) Label1.Text += "Запрос - пуст.\n";
                     //обновить grid с новыми данными
+                    GridView1.DataSourceID = null;
                     GridView1.DataSource = data;
                     GridView1.DataBind();
+                    tr.Commit();
 
                 }
                 catch (Exception exec)
@@ -101,6 +116,11 @@ namespace Lab8
         }
         protected void TextBox1_TextChanged(object sender, EventArgs e)
         {
+        }
+
+        protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

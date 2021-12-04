@@ -20,11 +20,11 @@ namespace Lab8
         protected void Button1_Click(object sender, EventArgs e)
         {
             //создание объекта подключения и ODBC-источник
-            OdbcConnection connection = new OdbcConnection(@"Dsn=PostgreSQL");
+            OdbcConnection connection = new OdbcConnection(@"Dsn=PostgreSQL30");
             connection.Open();
 
             //текст запроса
-            string request = "insert into pmib8306.e values('E'||trim(to_char(nextval('table_izd_seq'),'99999')), ?, ?, ?)";
+            string request = "insert into pmib8306.e values('E'||trim(to_char(nextval('pmib8306.table_izd_seq'),'99999')), ?, ?, ?)";
 
             //"create sequence table_izd_seq increment by 1 start with 14;
             using (OdbcCommand command = new OdbcCommand(request, connection))
@@ -44,8 +44,9 @@ namespace Lab8
                 {
                     //созданиетранзакции и извлечение объекта транзакции из объекта подключения
                     tx = connection.BeginTransaction();
-                    //объект SQL-команды в транзакцию
+                    //включаем объект SQL-команды в транзакцию
                     command.Transaction = tx;
+                    // выполняем SQL- команду и получаем количество обработанных записей
                     int i = command.ExecuteNonQuery();
                     //подтверждение транзакции
                     tx.Commit();

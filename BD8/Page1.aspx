@@ -46,7 +46,8 @@
                 <div class="flex-container center">
                     <asp:GridView
                         ID="GridView1"
-                        runat="server" Height="133px" Width="411px">
+                        runat="server" Height="139px" Width="606px" OnSelectedIndexChanged="GridView1_SelectedIndexChanged">
+                        
                     </asp:GridView>
                 </div>
                 <h4 style="width: 185px">Укажите изделие:</h4>
@@ -63,7 +64,7 @@
                     runat="server"
                     ConnectionString="<%$ ConnectionStrings:studentsConnectionString %>"
                     ProviderName="<%$ ConnectionStrings:studentsConnectionString.ProviderName %>"
-                    SelectCommand="SELECT n_izd FROM pmib8306.j ORDER BY n_izd"></asp:SqlDataSource>
+                    SelectCommand="SELECT n_izd, name, town FROM pmib8306.j ORDER BY n_izd"></asp:SqlDataSource>
                 <h4 style="width: 184px">Укажите дату:</h4>
                 <asp:TextBox
                     ID="TextBox1"
