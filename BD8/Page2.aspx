@@ -50,7 +50,7 @@
                         ID="DropDownList1" 
                         runat="server"
                         DataSourceID="SqlDataSource1"
-                         DataTextField="name"
+                         DataTextField="nameTown"
                          DataValueField="n_izd" Height="30px" Width="200px">
                     </asp:DropDownList>
 
@@ -59,7 +59,7 @@
                         runat="server"
                         ConnectionString="<%$ ConnectionStrings:studentsConnectionString %>"
                         ProviderName="<%$ ConnectionStrings:studentsConnectionString.ProviderName %>"
-                        SelectCommand="select name, n_izd from pmib8306.j"></asp:SqlDataSource>
+                        SelectCommand="SELECT n_izd, CONCAT_WS(' - ', name, town) AS nameTown FROM pmib8306.j"></asp:SqlDataSource>
                     <br />
                     <br />
                     <h4>Укажите размер издержек</h4>

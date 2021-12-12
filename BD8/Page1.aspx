@@ -55,7 +55,7 @@
                     ID="DropDownList1"
                     runat="server"
                     DataSourceID="SqlDataSource1"
-                    DataTextField="n_izd"
+                    DataTextField  = "nameTown"
                     DataValueField="n_izd" Height="30px" Width="200px">
                 </asp:DropDownList>
 
@@ -64,7 +64,7 @@
                     runat="server"
                     ConnectionString="<%$ ConnectionStrings:studentsConnectionString %>"
                     ProviderName="<%$ ConnectionStrings:studentsConnectionString.ProviderName %>"
-                    SelectCommand="SELECT n_izd, name, town FROM pmib8306.j ORDER BY n_izd"></asp:SqlDataSource>
+                    SelectCommand="SELECT n_izd, CONCAT_WS(' - ', name, town) AS nameTown FROM pmib8306.j"></asp:SqlDataSource>
                 <h4 style="width: 184px">Укажите дату:</h4>
                 <asp:TextBox
                     ID="TextBox1"
